@@ -6,89 +6,122 @@ export class HomeScene extends Phaser.Scene {
     super("home");
   }
 
+  preload() {
+    this.load.svg("town-bg", "assets/level1/town.svg");
+    this.load.svg("sepehr-art", "assets/level1/sepehr.svg");
+  }
+
   create() {
     const { width, height } = this.scale;
     const state = loadLevel1State();
 
-    this.cameras.main.setBackgroundColor("#87ceeb");
-    this.add.rectangle(width / 2, height / 2, width, height, 0x8ed0f5);
+    this.add.image(width / 2, height / 2, "town-bg")
+      .setDisplaySize(width, height);
 
-    const g = this.add.graphics();
-    g.fillStyle(0x73b56a, 1);
-    g.fillRect(0, 255, width, height - 255);
-    g.fillStyle(0xe8d6ae, 1);
-    g.fillRoundedRect(70, 290, 1140, 345, 42);
-
-    this.add.text(width / 2, 44, "دنیای پول سپهر", {
+    this.add.rectangle(width / 2, 55, width, 110, 0x102f47, 0.74);
+    this.add.text(width / 2, 38, "دنیای پول سپهر", {
       fontFamily: "Tahoma",
-      fontSize: "34px",
-      color: "#12395d",
-      fontStyle: "bold"
+      fontSize: "38px",
+      color: "#ffffff",
+      fontStyle: "bold",
+      stroke: "#17324a",
+      strokeThickness: 3
     }).setOrigin(0.5);
 
-    this.add.text(56, 42, `تجربه: ${state.xp}`, {
+    this.add.text(width / 2, 78, "یک شهر، چند راه، تصمیم‌های واقعی", {
+      fontFamily: "Tahoma",
+      fontSize: "17px",
+      color: "#dff5ff"
+    }).setOrigin(0.5);
+
+    const hero = this.add.image(160, 500, "sepehr-art")
+      .setDisplaySize(150, 205)
+      .setDepth(5);
+
+    this.tweens.add({
+      targets: hero,
+      y: 494,
+      yoyo: true,
+      repeat: -1,
+      duration: 1300,
+      ease: "Sine.easeInOut"
+    });
+
+    this.add.rectangle(1110, 54, 230, 56, 0xfffbef, 0.94)
+      .setStrokeStyle(2, 0xffffff, 0.8);
+    this.add.text(1110, 54, `تجربه  ${state.xp}`, {
       fontFamily: "Tahoma",
       fontSize: "20px",
       color: "#17324a",
       fontStyle: "bold"
-    });
+    }).setOrigin(0.5);
 
-    this.createPlace(230, 355, "بانک", "قفل", 0xe5e7eb);
-    this.createPlace(640, 335, "بازار", state.completed ? "مرحله ۱ انجام شد" : "مرحله ۱ فعال", 0xffdfad);
-    this.createPlace(1040, 385, "فروشگاه", "به‌زودی", 0xd8ecff);
-
-    this.add.rectangle(640, 596, 820, 158, 0xfffbef, 0.98)
-      .setStrokeStyle(4, state.completed ? 0x2f9d55 : 0x287fb8);
-
-    this.add.text(640, 555, state.completed ? "مرحله ۱: بازار بدون پول — انجام شد" : "مرحله ۱: بازار بدون پول", {
+    const mission = this.add.container(700, 545).setDepth(6);
+    const shadow = this.add.rectangle(8, 10, 700, 190, 0x17324a, 0.2);
+    const card = this.add.rectangle(0, 0, 700, 190, 0xfffbef, 0.97)
+      .setStrokeStyle(4, state.completed ? 0x45a85b : 0x2f87c7);
+    const ribbon = this.add.rectangle(0, -77, 370, 46, state.completed ? 0x45a85b : 0x2f87c7);
+    const ribbonText = this.add.text(0, -77, state.completed ? "مرحله ۱ انجام شد" : "ماموریت فعال", {
       fontFamily: "Tahoma",
-      fontSize: "25px",
+      fontSize: "20px",
+      color: "#ffffff",
+      fontStyle: "bold"
+    }).setOrigin(0.5);
+
+    const title = this.add.text(0, -25, "بازار بدون پول", {
+      fontFamily: "Tahoma",
+      fontSize: "31px",
       color: "#17324a",
       fontStyle: "bold"
     }).setOrigin(0.5);
 
-    this.add.text(
-      640,
-      600,
+    const body = this.add.text(
+      0,
+      20,
       state.completed
-        ? "می‌توانی دوباره با مسیر دیگری بازی کنی."
-        : "نانوا به یک توپ نیاز دارد. در شهر بگرد و راه خودت را پیدا کن.",
+        ? "این بار می‌توانی مسیر دیگری را امتحان کنی."
+        : "نانوا به یک توپ نیاز دارد. شهر را بگرد و راه خودت را پیدا کن.",
       {
         fontFamily: "Tahoma",
         fontSize: "19px",
-        color: "#2a475b",
+        color: "#425e72",
         align: "center",
-        wordWrap: { width: 680 }
+        wordWrap: { width: 610 }
       }
     ).setOrigin(0.5);
 
-    const button = this.add.rectangle(640, 654, 280, 52, 0x2b8dd8)
-      .setStrokeStyle(3, 0xffffff, 0.7)
+    const buttonBg = this.add.rectangle(0, 68, 265, 52, 0x2f87c7)
+      .setStrokeStyle(2, 0xffffff, 0.8)
       .setInteractive({ useHandCursor: true });
-
-    this.add.text(640, 654, state.completed ? "با همین وضعیت وارد شو" : "ورود به شهر", {
+    const buttonText = this.add.text(0, 68, state.completed ? "دوباره بازی کن" : "ورود به بازار", {
       fontFamily: "Tahoma",
       fontSize: "19px",
       color: "#ffffff",
       fontStyle: "bold"
     }).setOrigin(0.5);
 
-    button.on("pointerdown", () => this.scene.start("level1"));
-  }
+    mission.add([shadow, card, ribbon, ribbonText, title, body, buttonBg, buttonText]);
 
-  private createPlace(x: number, y: number, title: string, subtitle: string, color: number) {
-    this.add.rectangle(x, y, 250, 150, color, 1)
-      .setStrokeStyle(4, 0xffffff, 0.8);
-    this.add.text(x, y - 18, title, {
+    buttonBg.on("pointerover", () => mission.setScale(1.015));
+    buttonBg.on("pointerout", () => mission.setScale(1));
+    buttonBg.on("pointerdown", () => this.scene.start("level1"));
+
+    this.add.text(1105, 660, "بانک", {
       fontFamily: "Tahoma",
-      fontSize: "26px",
-      color: "#17324a",
-      fontStyle: "bold"
+      fontSize: "18px",
+      color: "#ffffff",
+      fontStyle: "bold",
+      backgroundColor: "#17324acc",
+      padding: { x: 16, y: 8 }
     }).setOrigin(0.5);
-    this.add.text(x, y + 24, subtitle, {
+
+    this.add.text(640, 150, "بازار", {
       fontFamily: "Tahoma",
-      fontSize: "16px",
-      color: "#52697c"
+      fontSize: "18px",
+      color: "#ffffff",
+      fontStyle: "bold",
+      backgroundColor: "#17324acc",
+      padding: { x: 16, y: 8 }
     }).setOrigin(0.5);
   }
 }
