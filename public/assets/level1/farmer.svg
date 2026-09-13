@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="230" viewBox="0 0 170 230">
+<defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".22"/></filter></defs>
+<ellipse cx="85" cy="213" rx="48" ry="12" fill="#17324a" opacity=".18"/>
+<g filter="url(#s)">
+<path d="M47 200 L54 132 Q84 117 116 132 L123 200Z" fill="#5BAA62"/>
+<rect x="60" y="184" width="20" height="38" rx="10" fill="#5F4638"/><rect x="91" y="184" width="20" height="38" rx="10" fill="#5F4638"/>
+<circle cx="85" cy="89" r="45" fill="#DDA875"/>
+<path d="M46 80 Q51 40 84 36 Q121 37 129 80 Q112 59 86 59 Q63 60 46 80Z" fill="#4A3328"/>
+<path d="M48 54 Q84 23 122 54 L113 66 Q85 58 58 66Z" fill="#C99B52"/><ellipse cx="85" cy="48" rx="45" ry="12" fill="#D5AA63"/>
+<circle cx="69" cy="93" r="5" fill="#2A211D"/><circle cx="101" cy="93" r="5" fill="#2A211D"/>
+<path d="M72 111 Q85 121 99 111" fill="none" stroke="#8D5140" stroke-width="4" stroke-linecap="round"/>
+<path d="M67 138 L103 138" stroke="#E5D2B3" stroke-width="7" stroke-linecap="round"/>
+<path d="M61 137 L74 178 M109 137 L96 178" stroke="#D0A04D" stroke-width="7"/>
+</g></svg>
