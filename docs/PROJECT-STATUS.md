@@ -1,8 +1,8 @@
 # Sepehr Money World — Project Status
 
 ## وضعیت فعلی
-Phase 1.5 — Level 1 System Design  
-Status: REVIEW GATE
+Phase 2 — Level 1 Gameplay Prototype  
+Status: PLAYTEST PREP
 
 ## Done
 - دامنه سواد مالی و Curriculum اولیه
@@ -10,35 +10,41 @@ Status: REVIEW GATE
 - Visual Direction اصلی
 - Foundation فنی Phaser/Vite
 - Supabase Project و Schema اولیه
-- GitHub Pages workflow
 - تصمیم محصولی: AI از MVP اجباری حذف شد
 - Prototype خطی Level 1 بررسی و رد شد
 - Decision Graph v0.2
 - World State Model v0.2
 - Consequence Matrix v0.2
 - Gameplay Review Gate v0.2
+- Prototype جدید با حرکت آزاد و 5 NPC
+- Inventory / Time / Trust / Knowledge / World Flags
+- سه خانواده Route: Fast Trade / Trust & Work / Direct Service
+- Hidden discovery و recovery after sunset
+- Automated state/route tests
+- CI test + build سبز
 
 ## In Progress
-- تأیید طراحی سیستم‌محور Level 1
-- تبدیل Level 1 از prototype خطی به exploratory puzzle gameplay
+- آماده‌سازی Playtest واقعی Level 1
+- بررسی Agency، Replayability و بن‌بست‌ها
 
 ## Blocked
-- Implementation جدید Level 1 تا تأیید Product Owner روی Decision Graph و Meaningful Choices شروع نمی‌شود.
+- لینک قابل‌بازی عمومی هنوز نداریم.
+- GitHub Pages در repository فعال نیست.
+- چون repository خصوصی است، فعال‌سازی Pages ممکن است روی دسترسی عمومی خروجی اثر بگذارد؛ تا تصمیم Product Owner تغییر visibility انجام نمی‌شود.
 
 ## Next
-1. Review طراحی Level 1
-2. پس از تأیید: طراحی Interaction/Movement prototype
-3. ساخت Inventory + World State reducer
-4. پیاده‌سازی 3 route معتبر
-5. Playtest با سپهر
-6. سپس Review Pack Level 2
+1. تصمیم درباره روش Preview امن
+2. اجرای Playtest Level 1
+3. اصلاح Choice/Consequence براساس رفتار واقعی
+4. بعد از Gameplay approval: Visual Polish
+5. سپس شروع System Design Level 2
 
-## تصمیم‌های قفل‌شده
-- مسیر اصلی بازی نباید به AI وابسته باشد.
-- Choice باید Consequence واقعی داشته باشد.
-- Levelها باید امکان recombination مسیرها را داشته باشند؛ نه درخت شاخه‌ای انفجاری.
-- اشتباه باید اطلاعات/پیامد ایجاد کند، نه صرفاً پیام غلط.
-- Gameplay قبل از Art نهایی تأیید می‌شود.
+## Gate فعلی
+Level 1 فقط زمانی Merge/Polish می‌شود که:
+- حداقل دو Route در Playtest قابل کشف باشد
+- Choiceها اثر واقعی داشته باشند
+- بن‌بست دائمی وجود نداشته باشد
+- Replay تمایل ایجاد کند
 
 ## Source of Truth
 GitHub repository: eabbasiyan-maker/sepehr-money-world
