@@ -38,14 +38,12 @@ jobs:
   deploy:
     if: github.event_name != 'pull_request'
     environment:
-      name: github-pages
+      name: level1-preview
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
