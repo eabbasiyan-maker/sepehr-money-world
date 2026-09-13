@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="230" viewBox="0 0 170 230">
+<defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".22"/></filter><linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4DA3E5"/><stop offset="1" stop-color="#1F6FB2"/></linearGradient></defs>
+<ellipse cx="85" cy="212" rx="48" ry="12" fill="#17324a" opacity=".18"/>
+<g filter="url(#s)">
+<path d="M48 198 L55 133 Q85 116 115 133 L122 198Z" fill="url(#shirt)"/>
+<rect x="58" y="190" width="20" height="32" rx="10" fill="#284866"/><rect x="92" y="190" width="20" height="32" rx="10" fill="#284866"/>
+<circle cx="85" cy="88" r="46" fill="#F0BC8A"/>
+<path d="M43 82 Q45 33 86 29 Q132 31 132 78 Q120 60 103 57 Q83 74 55 61 Q49 68 43 82Z" fill="#2A211D"/>
+<path d="M48 61 Q62 26 96 31 Q121 35 129 59 Q101 48 85 52 Q65 58 48 61Z" fill="#1F1B18"/>
+<circle cx="69" cy="91" r="5" fill="#2B241E"/><circle cx="101" cy="91" r="5" fill="#2B241E"/>
+<path d="M72 108 Q85 119 99 108" fill="none" stroke="#A85D4C" stroke-width="4" stroke-linecap="round"/>
+<path d="M59 140 Q85 157 112 140" fill="none" stroke="#EAF6FF" stroke-width="8" stroke-linecap="round"/>
+<circle cx="85" cy="158" r="15" fill="#FFF"/><path d="M85 146 l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z" fill="#2E8ED1"/>
+</g></svg>
