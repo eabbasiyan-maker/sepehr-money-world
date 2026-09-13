@@ -1,43 +1,44 @@
 # Sepehr Money World — Project Status
 
 ## وضعیت فعلی
-Phase 0 — Game & Learning Design  
-Status: IN PROGRESS
+Phase 1.5 — Level 1 System Design  
+Status: REVIEW GATE
 
 ## Done
-- انتخاب دامنه: سواد مالی
-- انتخاب منبع محتوایی پایه: How It Works: Money + Usborne Quicklinks
-- انتخاب معماری هدف اولیه: GitHub Pages + Supabase
-- تعیین نقش AI به‌عنوان Game Master نامرئی
-- GDD v0.1
-- Curriculum Coverage v0.1
-- MVP Scope v0.1
-- Campaign Map v0.1
-- طراحی کامل Vertical Slice Level 1–4
-- Art Direction v0.1
-- Repository ایجاد و دسترسی Push تأیید شد: eabbasiyan-maker/sepehr-money-world
+- دامنه سواد مالی و Curriculum اولیه
+- GDD و Campaign Map
+- Visual Direction اصلی
+- Foundation فنی Phaser/Vite
+- Supabase Project و Schema اولیه
+- GitHub Pages workflow
+- تصمیم محصولی: AI از MVP اجباری حذف شد
+- Prototype خطی Level 1 بررسی و رد شد
+- Decision Graph v0.2
+- World State Model v0.2
+- Consequence Matrix v0.2
+- Gameplay Review Gate v0.2
 
 ## In Progress
-- Visual Prototype / Mockup اصلی بازی
-- قفل‌کردن ظاهر صفحه شهر، HUD، فروشگاه، بانک و NPC interaction
+- تأیید طراحی سیستم‌محور Level 1
+- تبدیل Level 1 از prototype خطی به exploratory puzzle gameplay
 
 ## Blocked
-- Blocker فعالی وجود ندارد.
+- Implementation جدید Level 1 تا تأیید Product Owner روی Decision Graph و Meaningful Choices شروع نمی‌شود.
 
 ## Next
-1. ساخت Visual Prototype و گرفتن تأیید Product Owner
-2. پس از تأیید ظاهر: Setup فنی Phaser/Web
-3. آماده‌سازی GitHub Pages
-4. طراحی Schema اولیه Supabase
-5. ساخت Edge Function قرارداد Game ↔ AI
-6. پیاده‌سازی Vertical Slice
+1. Review طراحی Level 1
+2. پس از تأیید: طراحی Interaction/Movement prototype
+3. ساخت Inventory + World State reducer
+4. پیاده‌سازی 3 route معتبر
+5. Playtest با سپهر
+6. سپس Review Pack Level 2
 
-## Gate فعلی
-ورود به Phase 2 فقط بعد از تأیید Visual Prototype انجام می‌شود تا از خروجی خشک و شبیه HTML آموزشی جلوگیری شود.
+## تصمیم‌های قفل‌شده
+- مسیر اصلی بازی نباید به AI وابسته باشد.
+- Choice باید Consequence واقعی داشته باشد.
+- Levelها باید امکان recombination مسیرها را داشته باشند؛ نه درخت شاخه‌ای انفجاری.
+- اشتباه باید اطلاعات/پیامد ایجاد کند، نه صرفاً پیام غلط.
+- Gameplay قبل از Art نهایی تأیید می‌شود.
 
-## قواعد کنترل پروژه
-- Source of Truth کد و مستندات: GitHub
-- هر تغییر فنی باید قابل ردیابی در Commit باشد.
-- هر فاز Acceptance Criteria دارد.
-- قبل از رفتن به Campaign کامل، Vertical Slice باید با سپهر تست شود.
-- Blockerها سریع Escalate می‌شوند؛ تصمیم‌های غیرضروری به Product Owner منتقل نمی‌شوند.
+## Source of Truth
+GitHub repository: eabbasiyan-maker/sepehr-money-world
