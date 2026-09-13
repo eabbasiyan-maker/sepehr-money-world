@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="230" viewBox="0 0 170 230">
+<defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".22"/></filter></defs>
+<ellipse cx="85" cy="213" rx="48" ry="12" fill="#17324a" opacity=".18"/>
+<g filter="url(#s)">
+<path d="M48 200 L54 132 Q84 116 116 132 L122 200Z" fill="#F1E6D1"/>
+<rect x="63" y="185" width="18" height="36" rx="9" fill="#6E4B3C"/><rect x="90" y="185" width="18" height="36" rx="9" fill="#6E4B3C"/>
+<circle cx="85" cy="89" r="45" fill="#E8AF7B"/>
+<path d="M46 79 Q52 38 86 35 Q123 37 128 78 Q111 58 86 58 Q63 59 46 79Z" fill="#3B2A22"/>
+<path d="M54 43 Q85 17 116 43 L109 63 Q85 56 61 63Z" fill="#FFF7E5"/>
+<ellipse cx="85" cy="39" rx="35" ry="15" fill="#FFF7E5"/>
+<circle cx="69" cy="92" r="5" fill="#2A211D"/><circle cx="101" cy="92" r="5" fill="#2A211D"/>
+<path d="M63 111 Q85 126 107 111" fill="none" stroke="#6D3D32" stroke-width="7" stroke-linecap="round"/>
+<path d="M60 137 Q85 150 110 137" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+<rect x="67" y="150" width="36" height="35" rx="8" fill="#D9684E"/>
+</g></svg>
