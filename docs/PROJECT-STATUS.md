@@ -12,22 +12,28 @@ Status: IN PROGRESS
 - GDD v0.1
 - Curriculum Coverage v0.1
 - MVP Scope v0.1
+- Campaign Map v0.1
+- طراحی کامل Vertical Slice Level 1–4
+- Art Direction v0.1
 - Repository ایجاد و دسترسی Push تأیید شد: eabbasiyan-maker/sepehr-money-world
 
 ## In Progress
-- تبدیل Curriculum به Campaign Map
-- تعریف Level 1–4 برای Vertical Slice
-- Art Direction و Visual Prototype
+- Visual Prototype / Mockup اصلی بازی
+- قفل‌کردن ظاهر صفحه شهر، HUD، فروشگاه، بانک و NPC interaction
 
 ## Blocked
-- مورد مسدودکننده فعالی در شروع Phase 0 وجود ندارد.
+- Blocker فعالی وجود ندارد.
 
 ## Next
-1. ساخت Campaign Map v0.1
-2. طراحی Visual Direction / Mockup
-3. ساخت Backlog فاز 1
-4. Setup فنی GitHub Pages + Supabase پس از تأیید Visual Prototype
-5. سپس Vertical Slice
+1. ساخت Visual Prototype و گرفتن تأیید Product Owner
+2. پس از تأیید ظاهر: Setup فنی Phaser/Web
+3. آماده‌سازی GitHub Pages
+4. طراحی Schema اولیه Supabase
+5. ساخت Edge Function قرارداد Game ↔ AI
+6. پیاده‌سازی Vertical Slice
+
+## Gate فعلی
+ورود به Phase 2 فقط بعد از تأیید Visual Prototype انجام می‌شود تا از خروجی خشک و شبیه HTML آموزشی جلوگیری شود.
 
 ## قواعد کنترل پروژه
 - Source of Truth کد و مستندات: GitHub
