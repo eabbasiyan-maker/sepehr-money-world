@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { loadLevel1State } from "../game/level1State";
 
 export class HomeScene extends Phaser.Scene {
   constructor() {
@@ -7,74 +8,87 @@ export class HomeScene extends Phaser.Scene {
 
   create() {
     const { width, height } = this.scale;
+    const state = loadLevel1State();
 
     this.cameras.main.setBackgroundColor("#87ceeb");
-
     this.add.rectangle(width / 2, height / 2, width, height, 0x8ed0f5);
-    this.add.circle(width * 0.18, height * 0.18, 90, 0xffdf6c);
 
-    this.add.text(width / 2, 52, "دنیای پول سپهر", {
+    const g = this.add.graphics();
+    g.fillStyle(0x73b56a, 1);
+    g.fillRect(0, 255, width, height - 255);
+    g.fillStyle(0xe8d6ae, 1);
+    g.fillRoundedRect(70, 290, 1140, 345, 42);
+
+    this.add.text(width / 2, 44, "دنیای پول سپهر", {
       fontFamily: "Tahoma",
       fontSize: "34px",
       color: "#12395d",
       fontStyle: "bold"
     }).setOrigin(0.5);
 
-    this.add.text(width - 40, 40, "🪙 ۱۲۵   ⭐ ۳۴۰", {
+    this.add.text(56, 42, `تجربه: ${state.xp}`, {
       fontFamily: "Tahoma",
-      fontSize: "24px",
-      color: "#17334f"
-    }).setOrigin(1, 0);
+      fontSize: "20px",
+      color: "#17324a",
+      fontStyle: "bold"
+    });
 
-    const cards = [
-      { x: 0.22, y: 0.42, title: "🏦 بانک", subtitle: "پس‌انداز • برنامه‌ریزی" },
-      { x: 0.50, y: 0.38, title: "🏪 فروشگاه", subtitle: "خرید • مقایسه • انتخاب" },
-      { x: 0.78, y: 0.48, title: "🛒 بازار", subtitle: "کشف فرصت‌ها" }
-    ];
+    this.createPlace(230, 355, "بانک", "قفل", 0xe5e7eb);
+    this.createPlace(640, 335, "بازار", state.completed ? "مرحله ۱ انجام شد" : "مرحله ۱ فعال", 0xffdfad);
+    this.createPlace(1040, 385, "فروشگاه", "به‌زودی", 0xd8ecff);
 
-    for (const card of cards) {
-      const cx = width * card.x;
-      const cy = height * card.y;
-      this.add.rectangle(cx, cy, 240, 110, 0xffffff, 0.92).setStrokeStyle(3, 0x2c78b8);
-      this.add.text(cx, cy - 18, card.title, {
-        fontFamily: "Tahoma",
-        fontSize: "28px",
-        color: "#163c66",
-        fontStyle: "bold"
-      }).setOrigin(0.5);
-      this.add.text(cx, cy + 22, card.subtitle, {
-        fontFamily: "Tahoma",
-        fontSize: "17px",
-        color: "#425d72"
-      }).setOrigin(0.5);
-    }
+    this.add.rectangle(640, 596, 820, 158, 0xfffbef, 0.98)
+      .setStrokeStyle(4, state.completed ? 0x2f9d55 : 0x287fb8);
 
-    const quest = this.add.rectangle(width / 2, height * 0.76, Math.min(720, width * 0.82), 150, 0xfffbef, 0.97)
-      .setStrokeStyle(4, 0x38a34a);
-    quest.setInteractive({ useHandCursor: true });
-
-    this.add.text(width / 2, height * 0.72, "ماموریت جدید!", {
+    this.add.text(640, 555, state.completed ? "مرحله ۱: بازار بدون پول — انجام شد" : "مرحله ۱: بازار بدون پول", {
       fontFamily: "Tahoma",
-      fontSize: "26px",
-      color: "#1d4f2d",
+      fontSize: "25px",
+      color: "#17324a",
       fontStyle: "bold"
     }).setOrigin(0.5);
 
-    this.add.text(width / 2, height * 0.77, "به روباه کمک کن یک انتخاب هوشمندانه داشته باشد.", {
+    this.add.text(
+      640,
+      600,
+      state.completed
+        ? "می‌توانی دوباره با مسیر دیگری بازی کنی."
+        : "نانوا به یک توپ نیاز دارد. در شهر بگرد و راه خودت را پیدا کن.",
+      {
+        fontFamily: "Tahoma",
+        fontSize: "19px",
+        color: "#2a475b",
+        align: "center",
+        wordWrap: { width: 680 }
+      }
+    ).setOrigin(0.5);
+
+    const button = this.add.rectangle(640, 654, 280, 52, 0x2b8dd8)
+      .setStrokeStyle(3, 0xffffff, 0.7)
+      .setInteractive({ useHandCursor: true });
+
+    this.add.text(640, 654, state.completed ? "با همین وضعیت وارد شو" : "ورود به شهر", {
       fontFamily: "Tahoma",
-      fontSize: "20px",
-      color: "#294456"
+      fontSize: "19px",
+      color: "#ffffff",
+      fontStyle: "bold"
     }).setOrigin(0.5);
 
-    const status = this.add.text(width / 2, height * 0.83, "برای شروع لمس کن", {
-      fontFamily: "Tahoma",
-      fontSize: "18px",
-      color: "#15732d"
-    }).setOrigin(0.5);
+    button.on("pointerdown", () => this.scene.start("level1"));
+  }
 
-    quest.on("pointerdown", () => {
-      status.setText("ماموریت ۱ در Vertical Slice بعدی فعال می‌شود");
-      this.tweens.add({ targets: quest, scaleX: 1.03, scaleY: 1.03, yoyo: true, duration: 120 });
-    });
+  private createPlace(x: number, y: number, title: string, subtitle: string, color: number) {
+    this.add.rectangle(x, y, 250, 150, color, 1)
+      .setStrokeStyle(4, 0xffffff, 0.8);
+    this.add.text(x, y - 18, title, {
+      fontFamily: "Tahoma",
+      fontSize: "26px",
+      color: "#17324a",
+      fontStyle: "bold"
+    }).setOrigin(0.5);
+    this.add.text(x, y + 24, subtitle, {
+      fontFamily: "Tahoma",
+      fontSize: "16px",
+      color: "#52697c"
+    }).setOrigin(0.5);
   }
 }
