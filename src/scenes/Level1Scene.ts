@@ -261,7 +261,7 @@ export class Level1Scene extends Phaser.Scene {
     const close = this.makeButton(640, 505, 220, 58, "فهمیدم", 0x2f9d55, () => {
       [overlay, panel, close.container].forEach((o) => o.destroy());
       this.children.list
-        .filter((o) => o.depth === 52)
+        .filter((o) => (o as Phaser.GameObjects.GameObject & { depth?: number }).depth === 52)
         .forEach((o) => o.destroy());
 
       if (this.visited.size === 3) {
@@ -498,7 +498,7 @@ export class Level1Scene extends Phaser.Scene {
       panel.destroy();
       start.container.destroy();
       this.children.list
-        .filter((o) => o.depth === 82)
+        .filter((o) => (o as Phaser.GameObjects.GameObject & { depth?: number }).depth === 82)
         .forEach((o) => o.destroy());
     }, 83);
   }
