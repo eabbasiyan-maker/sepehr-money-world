@@ -295,14 +295,14 @@ export class Level1Scene extends Phaser.Scene {
 
     if (hasItem(this.state, "bread") && !this.state.flags.farmerBikeTraded) {
       actions.push({
-        label: "نان را با دوچرخه خراب عوض کن",
+        label: "نان را با دوچرخه سالم عوض کن",
         run: () => {
-          trade(this.state, { bread: 1 }, { old_bike: 1 });
+          trade(this.state, { bread: 1 }, { repaired_bike: 1 });
           this.state.flags.farmerBikeTraded = true;
           adjustTrust(this.state, "farmer", 1);
-          addKnowledge(this.state, "mechanic_can_repair_bike");
-          addLog(this.state, "نان با دوچرخه خراب معاوضه شد.");
-          this.persist("دوچرخه خراب گرفتی. شاید کسی بتواند تعمیرش کند.");
+          this.state.flags.bikeRepaired = true;
+          addLog(this.state, "نان با دوچرخه سالم معاوضه شد.");
+          this.persist("مسیر سریع را انتخاب کردی؛ نان خرج شد و دوچرخه سالم گرفتی.");
         }
       });
     }
@@ -335,7 +335,7 @@ export class Level1Scene extends Phaser.Scene {
 
     this.openPanel(
       "کشاورز",
-      "یک دوچرخه قدیمی دارم. نان لازم دارم؛ یا اگر کمکم کنی، می‌توانم هویج بدهم.",
+      "یک دوچرخه سالم دارم که با نان عوض می‌کنم؛ اگر هم کمکم کنی، راه دیگری برای جبران پیدا می‌کنم.",
       actions
     );
   }
