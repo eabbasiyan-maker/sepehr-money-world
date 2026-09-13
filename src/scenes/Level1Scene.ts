@@ -613,9 +613,9 @@ export class Level1Scene extends Phaser.Scene {
     this.modal = container;
   }
 
-  private makeButton(x: number, y: number, w: number, h: number, label: string, onClick: () => void) {
+  private makeButton(x: number, y: number, w: number, h: number, label: string, color: number, onClick: () => void) {
     const c = this.add.container(x, y);
-    const bg = this.add.rectangle(0, 0, w, h, 0x2f87c7, 1)
+    const bg = this.add.rectangle(0, 0, w, h, color, 1)
       .setStrokeStyle(2, 0xffffff, 0.7)
       .setInteractive({ useHandCursor: true });
     const text = this.add.text(0, 0, label, {
