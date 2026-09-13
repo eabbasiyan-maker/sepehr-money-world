@@ -1,13 +1,14 @@
 import Phaser from "phaser";
 import "./style.css";
 import { HomeScene } from "./scenes/HomeScene";
+import { Level1Scene } from "./scenes/Level1Scene";
 import { ensureAnonymousSession } from "./lib/supabase";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 if (app) app.innerHTML = '<div class="loading">در حال آماده‌سازی شهر سپهر…</div>';
 
 ensureAnonymousSession().catch(() => {
-  // The visual prototype can run even before Supabase environment variables are configured.
+  // MVP gameplay remains fully playable without AI or a live backend session.
 }).finally(() => {
   if (app) app.innerHTML = "";
 
@@ -21,6 +22,6 @@ ensureAnonymousSession().catch(() => {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [HomeScene]
+    scene: [HomeScene, Level1Scene]
   });
 });

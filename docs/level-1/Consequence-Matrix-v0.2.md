@@ -7,8 +7,8 @@
 |---|---|---|---|---|
 | گرفتن Bread از نانوا | Bread +1 | Route A باز | Baker remembers help attempt | Farmer clue meaningful می‌شود |
 | رد کردن Bread | Inventory خالی می‌ماند | نیاز به exploration بیشتر | XP exploration potential بیشتر | Service routes زودتر کشف می‌شوند |
-| Bread → Farmer | Bread -1, Old Bike +1 | مسیر دوچرخه باز | Farmer Trust +1 | Bread دیگر برای trade دیگری نیست |
-| کمک به جعبه‌های Farmer | Time +1, Carrot +2 | Route B باز | Farmer Trust +2 | clue درباره نجار |
+| Bread → Farmer | Bread -1, Repaired Bike +1 | مسیر سریع توپ باز | Farmer Trust +1 | Bread دیگر برای مسیرهای دیگر در دسترس نیست |
+| کمک به جعبه‌های Farmer | Time +1, Carrot +2 | Route B باز؛ پاداش Old Bike قابل بازشدن | Farmer Trust +2 | clue درباره نجار |
 | Carrot → Carpenter | Carrot -1, Wood +1 | repair route باز | Carpenter Trust +1 | انبار ممکن است معرفی شود |
 | کمک به Carpenter بدون trade | Time +1 | clue/shortcut | Trust +1 | optional storage route |
 | بردن Old Bike خراب به BallSeller | معامله رد می‌شود | clue: نیاز به repair | بدون جریمه دائمی | تفاوت ارزش سالم/خراب کشف می‌شود |
@@ -21,8 +21,8 @@
 | زیاد صبر کردن تا sunset | shop closed | مسیر سریع موقتاً بسته | beforeSunset bonus lost | next-day recovery |
 | رساندن Ball قبل از sunset | Level solved | bonus XP | Baker Trust +2 | ending variant |
 | رساندن Ball روز بعد | Level solved | no time bonus | Baker Trust +1 | ending variant |
-| حل با Route A | سریع | resource spent | “efficient trader” evidence | — |
-| حل با Route B | کندتر | more trust/resources learned | “resourceful helper” evidence | — |
+| حل با Route A | سریع | Bread مصرف می‌شود | “efficient trader” evidence | مسیر کم‌Trust و کم‌Exploration |
+| حل با Route B | کندتر | Bread حفظ می‌شود و Old Bike از Trust می‌آید | “resourceful helper” evidence | repair path باز می‌شود |
 | حل با Route C | service exchange | no goods chain required | “creative solver” evidence | مفهوم ارزش خدمت |
 
 ## Consequence Rule

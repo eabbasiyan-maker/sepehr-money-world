@@ -4,13 +4,17 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
+    branches: [main, level-1-gameplay-prototype]
   workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: pages-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -21,6 +25,7 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - run: npm test
       - run: npm run build
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
@@ -33,7 +38,7 @@ jobs:
   deploy:
     if: github.event_name != 'pull_request'
     environment:
-      name: github-pages
+      name: level1-preview
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
