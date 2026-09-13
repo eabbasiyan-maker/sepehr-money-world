@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, level-1-gameplay-prototype]
+    branches: [main, level-1-gameplay-prototype, level-1-visual-pass]
   workflow_dispatch:
 
 permissions:
