@@ -52,6 +52,16 @@ export class Level1Scene extends Phaser.Scene {
     super("level1");
   }
 
+  preload() {
+    this.load.svg("town-bg", "assets/level1/town.svg");
+    this.load.svg("sepehr-art", "assets/level1/sepehr.svg");
+    this.load.svg("baker-art", "assets/level1/baker.svg");
+    this.load.svg("farmer-art", "assets/level1/farmer.svg");
+    this.load.svg("mechanic-art", "assets/level1/mechanic.svg");
+    this.load.svg("carpenter-art", "assets/level1/carpenter.svg");
+    this.load.svg("ball-seller-art", "assets/level1/ball-seller.svg");
+  }
+
   create() {
     this.state = loadLevel1State();
     this.drawWorld();
@@ -62,40 +72,26 @@ export class Level1Scene extends Phaser.Scene {
   }
 
   private drawWorld() {
-    this.cameras.main.setBackgroundColor("#86d1f4");
+    this.cameras.main.setBackgroundColor("#79c8ed");
 
-    const g = this.add.graphics();
-    g.fillStyle(0x8fd7f7, 1);
-    g.fillRect(0, 0, 1280, 720);
+    this.add.image(640, 360, "town-bg")
+      .setDisplaySize(1280, 720)
+      .setDepth(0);
 
-    g.fillStyle(0x79b86c, 1);
-    g.fillRect(0, 135, 1280, 585);
+    this.add.rectangle(640, 52, 1280, 104, 0x0f3048, 0.73).setDepth(10);
 
-    g.fillStyle(0xe6d1a5, 1);
-    g.fillRoundedRect(70, 165, 1140, 470, 36);
-
-    g.fillStyle(0xc7e9ff, 1);
-    g.fillRoundedRect(510, 385, 270, 105, 40);
-
-    this.add.text(645, 430, "رودخانه", {
+    const questPill = this.add.container(640, 108).setDepth(12);
+    const qBg = this.add.rectangle(0, 0, 610, 48, 0xfffbef, 0.96)
+      .setStrokeStyle(3, 0xffffff, 0.8);
+    const qText = this.add.text(0, 0, "ماموریت: راهی پیدا کن تا توپ به نانوا برسد", {
       fontFamily: "Tahoma",
-      fontSize: "18px",
-      color: "#3a799e"
+      fontSize: "19px",
+      color: "#17324a",
+      fontStyle: "bold"
     }).setOrigin(0.5);
+    questPill.add([qBg, qText]);
 
-    this.placeBuilding(90, 185, 180, 105, 0xffe1a8, "نانوایی");
-    this.placeBuilding(245, 445, 180, 105, 0xdaf0b6, "مزرعه");
-    this.placeBuilding(560, 145, 190, 105, 0xffd8a8, "فروشگاه توپ");
-    this.placeBuilding(835, 180, 190, 105, 0xd6e7ff, "تعمیرگاه");
-    this.placeBuilding(930, 445, 190, 105, 0xf0d5b8, "نجاری");
-
-    this.add.text(64, 665, "لمس کن تا حرکت کنی • روی آدم‌ها برای گفتگو بزن", {
-      fontFamily: "Tahoma",
-      fontSize: "16px",
-      color: "#17324a"
-    }).setDepth(5);
-
-    const walkZone = this.add.zone(640, 390, 1120, 440).setInteractive();
+    const walkZone = this.add.zone(640, 410, 1180, 510).setInteractive();
     walkZone.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
       if (this.modal || this.moving) return;
       this.movePlayerTo(pointer.worldX, pointer.worldY);
@@ -107,10 +103,9 @@ export class Level1Scene extends Phaser.Scene {
     this.createNpc("mechanic", "تعمیرکار", 0x4f78b7);
     this.createNpc("ballSeller", "توپ‌فروش", 0xe49b2f);
 
-    const hidden = this.add.circle(810, 560, 26, 0xffffff, 0.12)
-      .setStrokeStyle(2, 0xffffff, 0.25)
+    const hidden = this.add.zone(810, 565, 92, 92)
       .setInteractive({ useHandCursor: true })
-      .setDepth(3);
+      .setDepth(4);
     hidden.on("pointerdown", () => {
       if (this.modal || this.moving) return;
       this.movePlayerTo(810, 560, () => this.discoverStorage());
@@ -131,19 +126,46 @@ export class Level1Scene extends Phaser.Scene {
     }).setOrigin(0.5);
   }
 
-  private createNpc(key: NpcKey, label: string, color: number) {
+  private createNpc(key: NpcKey, label: string, _color: number) {
     const pos = NPC_POS[key];
-    const c = this.add.container(pos.x, pos.y).setDepth(4);
-    const shadow = this.add.ellipse(0, 34, 58, 18, 0x000000, 0.18);
-    const body = this.add.circle(0, 0, 28, color).setStrokeStyle(3, 0xffffff, 0.85);
-    const text = this.add.text(0, 49, label, {
+    const texture: Record<NpcKey, string> = {
+      baker: "baker-art",
+      farmer: "farmer-art",
+      carpenter: "carpenter-art",
+      mechanic: "mechanic-art",
+      ballSeller: "ball-seller-art"
+    };
+
+    const c = this.add.container(pos.x, pos.y).setDepth(6);
+    const glow = this.add.circle(0, 28, 58, 0xffffff, 0.18);
+    const art = this.add.image(0, -8, texture[key]).setDisplaySize(86, 116);
+    const nameBg = this.add.rectangle(0, 60, 100, 29, 0x17324a, 0.88)
+      .setStrokeStyle(2, 0xffffff, 0.7);
+    const text = this.add.text(0, 60, label, {
       fontFamily: "Tahoma",
-      fontSize: "15px",
-      color: "#17324a",
+      fontSize: "14px",
+      color: "#ffffff",
       fontStyle: "bold"
     }).setOrigin(0.5);
-    const zone = this.add.zone(0, 0, 90, 100).setInteractive({ useHandCursor: true });
-    c.add([shadow, body, text, zone]);
+    const marker = this.add.circle(36, -52, 13, 0xffd85a)
+      .setStrokeStyle(3, 0xffffff, 0.9);
+    const markerText = this.add.text(36, -53, "!", {
+      fontFamily: "Tahoma",
+      fontSize: "17px",
+      color: "#684b00",
+      fontStyle: "bold"
+    }).setOrigin(0.5);
+    const zone = this.add.zone(0, 0, 112, 145).setInteractive({ useHandCursor: true });
+    c.add([glow, art, nameBg, text, marker, markerText, zone]);
+
+    this.tweens.add({
+      targets: marker,
+      scaleX: 1.15,
+      scaleY: 1.15,
+      yoyo: true,
+      repeat: -1,
+      duration: 850
+    });
 
     zone.on("pointerdown", () => {
       if (this.modal || this.moving) return;
@@ -152,59 +174,84 @@ export class Level1Scene extends Phaser.Scene {
   }
 
   private drawPlayer() {
-    this.player = this.add.container(640, 565).setDepth(6);
-    const shadow = this.add.ellipse(0, 26, 54, 16, 0x000000, 0.2);
-    const body = this.add.circle(0, 0, 25, 0x2f80c2).setStrokeStyle(4, 0xffffff, 0.9);
-    const head = this.add.circle(0, -28, 18, 0xf0bd8c).setStrokeStyle(2, 0xffffff);
-    this.player.add([shadow, body, head]);
-    this.add.text(640, 615, "سپهر", {
-      fontFamily: "Tahoma",
-      fontSize: "16px",
-      color: "#17324a",
-      fontStyle: "bold"
-    }).setOrigin(0.5).setDepth(6);
+    this.player = this.add.container(640, 590).setDepth(9);
+    const shadow = this.add.ellipse(0, 50, 68, 20, 0x17324a, 0.2);
+    const art = this.add.image(0, 0, "sepehr-art").setDisplaySize(88, 120);
+    this.player.add([shadow, art]);
+
+    this.tweens.add({
+      targets: art,
+      y: -4,
+      yoyo: true,
+      repeat: -1,
+      duration: 1100,
+      ease: "Sine.easeInOut"
+    });
   }
 
   private drawHud() {
-    this.add.rectangle(640, 52, 1240, 80, 0x164b72, 0.94)
-      .setStrokeStyle(2, 0xffffff, 0.35)
-      .setDepth(20);
-
-    this.hudText = this.add.text(40, 32, "", {
-      fontFamily: "Tahoma",
-      fontSize: "18px",
-      color: "#ffffff"
-    }).setDepth(21);
-
-    this.inventoryText = this.add.text(1220, 31, "", {
-      fontFamily: "Tahoma",
-      fontSize: "17px",
-      color: "#fff4c7",
-      align: "right"
-    }).setOrigin(1, 0).setDepth(21);
-
-    this.statusText = this.add.text(640, 112, "", {
+    const profile = this.add.container(118, 50).setDepth(21);
+    const pBg = this.add.rectangle(0, 0, 196, 62, 0xfffbef, 0.96)
+      .setStrokeStyle(2, 0xffffff, 0.8);
+    const portrait = this.add.image(-66, 0, "sepehr-art").setDisplaySize(42, 57);
+    const name = this.add.text(5, -13, "سپهر", {
       fontFamily: "Tahoma",
       fontSize: "18px",
       color: "#17324a",
-      backgroundColor: "#fff8df",
-      padding: { x: 14, y: 7 },
+      fontStyle: "bold"
+    }).setOrigin(0.5);
+    const level = this.add.text(5, 13, "مرحله ۱", {
+      fontFamily: "Tahoma",
+      fontSize: "13px",
+      color: "#587184"
+    }).setOrigin(0.5);
+    profile.add([pBg, portrait, name, level]);
+
+    const timeCard = this.add.rectangle(410, 50, 190, 54, 0x17324a, 0.9)
+      .setStrokeStyle(2, 0xffffff, 0.65)
+      .setDepth(20);
+    this.hudText = this.add.text(410, 50, "", {
+      fontFamily: "Tahoma",
+      fontSize: "17px",
+      color: "#ffffff",
+      fontStyle: "bold"
+    }).setOrigin(0.5).setDepth(21);
+    timeCard.setData("role", "time");
+
+    const bagCard = this.add.rectangle(1045, 50, 420, 54, 0xfffbef, 0.94)
+      .setStrokeStyle(2, 0xffffff, 0.75)
+      .setDepth(20);
+    this.inventoryText = this.add.text(1045, 50, "", {
+      fontFamily: "Tahoma",
+      fontSize: "15px",
+      color: "#17324a",
+      align: "center",
+      fontStyle: "bold"
+    }).setOrigin(0.5).setDepth(21);
+    bagCard.setData("role", "bag");
+
+    this.statusText = this.add.text(640, 662, "", {
+      fontFamily: "Tahoma",
+      fontSize: "16px",
+      color: "#17324a",
+      backgroundColor: "#fff8dfdd",
+      padding: { x: 16, y: 8 },
       align: "center"
     }).setOrigin(0.5).setDepth(15);
 
-    const reset = this.add.text(1135, 648, "شروع دوباره", {
+    const reset = this.add.text(1190, 670, "شروع دوباره", {
       fontFamily: "Tahoma",
-      fontSize: "15px",
+      fontSize: "13px",
       color: "#ffffff",
-      backgroundColor: "#9a4c48",
-      padding: { x: 12, y: 8 }
-    }).setInteractive({ useHandCursor: true }).setDepth(20);
+      backgroundColor: "#9a4c48dd",
+      padding: { x: 10, y: 7 }
+    }).setOrigin(1, 0.5).setInteractive({ useHandCursor: true }).setDepth(20);
     reset.on("pointerdown", () => {
       this.state = resetLevel1State();
       this.scene.restart();
     });
 
-    this.refreshHud("هدفت: راهی پیدا کن تا توپ به نانوا برسد.");
+    this.refreshHud("شهر را بگرد؛ لازم نیست از مسیر مشخصی بروی.");
   }
 
   private movePlayerTo(x: number, y: number, done?: () => void) {
@@ -573,41 +620,60 @@ export class Level1Scene extends Phaser.Scene {
   private openPanel(title: string, body: string, actions: Action[]) {
     this.closeModal();
 
-    const container = this.add.container(640, 380).setDepth(50);
-    const shade = this.add.rectangle(0, 0, 1280, 720, 0x102537, 0.48)
-      .setInteractive();
-    const panel = this.add.rectangle(0, 0, 760, 440, 0xfffbef, 1)
-      .setStrokeStyle(5, 0x2e78ad);
+    const portraitTexture: Record<string, string> = {
+      "نانوا": "baker-art",
+      "کشاورز": "farmer-art",
+      "نجار": "carpenter-art",
+      "تعمیرکار": "mechanic-art",
+      "فروشگاه توپ": "ball-seller-art",
+      "توپ‌فروش": "ball-seller-art",
+      "بازار بدون پول": "sepehr-art",
+      "ماموریت انجام شد": "sepehr-art"
+    };
 
-    const titleText = this.add.text(0, -165, title, {
+    const container = this.add.container(640, 382).setDepth(50);
+    const shade = this.add.rectangle(0, 0, 1280, 720, 0x102537, 0.58)
+      .setInteractive();
+
+    const shadow = this.add.rectangle(8, 10, 930, 446, 0x0b2233, 0.28);
+    const panel = this.add.rectangle(0, 0, 930, 446, 0xfffbef, 0.99)
+      .setStrokeStyle(5, 0xffffff, 0.9);
+
+    const portraitCard = this.add.rectangle(-335, -20, 205, 315, 0xdff2fb, 1)
+      .setStrokeStyle(3, 0x9bcfe8, 1);
+    const portrait = this.add.image(-335, -28, portraitTexture[title] ?? "sepehr-art")
+      .setDisplaySize(150, 202);
+
+    const titleText = this.add.text(130, -165, title, {
       fontFamily: "Tahoma",
-      fontSize: "30px",
+      fontSize: "31px",
       color: "#17324a",
       fontStyle: "bold"
     }).setOrigin(0.5);
 
-    const bodyText = this.add.text(0, -92, body, {
+    const bodyText = this.add.text(130, -95, body, {
       fontFamily: "Tahoma",
-      fontSize: "21px",
+      fontSize: "20px",
       color: "#29485f",
-      align: "center",
-      wordWrap: { width: 650 },
-      lineSpacing: 6
+      align: "right",
+      rtl: true,
+      wordWrap: { width: 545 },
+      lineSpacing: 8
     }).setOrigin(0.5);
 
-    container.add([shade, panel, titleText, bodyText]);
+    container.add([shade, shadow, panel, portraitCard, portrait, titleText, bodyText]);
 
     const usableActions = actions.filter((a) => a.enabled !== false);
     usableActions.slice(0, 4).forEach((action, index) => {
-      const y = 5 + index * 68;
-      const button = this.makeButton(0, y, 560, 54, action.label, 0x2f87c7, () => {
+      const y = 15 + index * 66;
+      const button = this.makeButton(130, y, 525, 52, action.label, index === 0 ? 0x2f9d55 : 0x2f87c7, () => {
         this.closeModal();
         action.run();
       });
       container.add(button);
     });
 
-    const close = this.makeButton(0, 190, 180, 44, "فعلاً نه", 0x7c8790, () => this.closeModal());
+    const close = this.makeButton(-335, 173, 170, 42, "فعلاً نه", 0x71808a, () => this.closeModal());
     container.add(close);
 
     this.modal = container;
@@ -654,15 +720,13 @@ export class Level1Scene extends Phaser.Scene {
       next_day: "روز بعد"
     };
 
-    this.hudText.setText(
-      `زمان: ${timeLabel[this.state.time]}   |   تجربه: ${this.state.xp}   |   اعتماد: نانوا ${this.state.trust.baker} • کشاورز ${this.state.trust.farmer} • تعمیرکار ${this.state.trust.mechanic}`
-    );
+    this.hudText.setText(`${timeLabel[this.state.time]}   •   تجربه ${this.state.xp}`);
 
     const entries = (Object.entries(this.state.inventory) as [ItemKey, number][])
       .filter(([, count]) => count > 0)
       .map(([item, count]) => `${ITEM_LABEL[item]} ×${count}`);
 
-    this.inventoryText.setText(entries.length ? `کیف: ${entries.join(" | ")}` : "کیف: خالی");
+    this.inventoryText.setText(entries.length ? `کیف من:  ${entries.join("   |   ")}` : "کیف من: خالی");
     if (message) this.statusText.setText(message);
   }
 
